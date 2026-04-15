@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Connexion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Enregistrement patient DPS</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <span id="time"></span>
+  </div>
+</header>
+
+<main class="page-content">
+  <section class="events-page">
+    <section class="panel login-panel">
+      <div class="panel-header">
+        <div>
+          <h1 class="page-title">Connexion</h1>
+          <p class="page-subtitle">Identifie-toi pour accéder à RESCUETRACK.</p>
+        </div>
+      </div>
+
+      <form id="loginForm" class="form-stack">
+        <div class="field-block">
+          <label for="email">Identifiant</label>
+          <input type="text" id="email" placeholder="Exemple : admin@test.be" required>
+        </div>
+
+        <div class="field-block">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" placeholder="Mot de passe" required>
+        </div>
+
+        <div class="login-demo-box">
+          Comptes de test :
+          <br>user@test.be
+          <br>dispatch@test.be
+          <br>admin@test.be
+          <br>Mot de passe : 1234
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Se connecter</button>
+        </div>
+
+        <div id="message" class="login-message"></div>
+      </form>
+    </section>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

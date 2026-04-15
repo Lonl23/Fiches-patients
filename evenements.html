@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Événements</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Enregistrement patient DPS</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <span id="time"></span>
+  </div>
+</header>
+
+<main class="page-content">
+  <section class="events-page">
+    <section class="page-topbar">
+      <div class="page-user">
+        <span id="connectedUser"></span>
+      </div>
+
+      <div class="topbar-actions">
+        <button id="backToProvinceBtn" class="btn-secondary">Changer de province</button>
+        <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h1 class="page-title" id="eventsTitle">Liste des événements</h1>
+          <p class="page-subtitle" id="eventsSubtitle"></p>
+        </div>
+
+        <div class="panel-header-actions">
+          <div class="big-counter" id="eventsCount">0</div>
+          <button id="openCreateModalBtn" class="btn-plus" title="Créer un événement">+</button>
+        </div>
+      </div>
+
+      <section id="dispatchCountersPanel" class="dispatch-panel hidden">
+        <h2 class="section-title">Vue centrale / dispatch</h2>
+        <div class="dispatch-grid" id="dispatchCountersGrid"></div>
+      </section>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Sous-type</th>
+              <th>Commune</th>
+              <th>Date</th>
+              <th>Patients</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="eventsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+</main>
+
+<div id="createEventModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Créer un événement</h2>
+      <button id="closeModalBtn" class="modal-close" type="button">&times;</button>
+    </div>
+
+    <form id="createEventForm" class="form-stack">
+      <div class="form-grid form-grid-3">
+        <div class="field-block">
+          <label for="eventProvince">Province</label>
+          <input type="text" id="eventProvince" readonly>
+        </div>
+
+        <div class="field-block">
+          <label for="eventCommune">Commune</label>
+          <input type="text" id="eventCommune" required>
+        </div>
+
+        <div class="field-block">
+          <label for="eventStreet">Rue</label>
+          <input type="text" id="eventStreet">
+        </div>
+      </div>
+
+      <div class="form-grid form-grid-3">
+        <div class="field-block">
+          <label for="eventType">Type d'événement</label>
+          <select id="eventType" required>
+            <option value="">Choisir</option>
+            <option value="PIM/KTA">PIM/KTA</option>
+            <option value="DMP">DMP</option>
+          </select>
+        </div>
+
+        <div class="field-block">
+          <label for="eventSubtype">Sous-type</label>
+          <select id="eventSubtype" required>
+            <option value="">Choisir</option>
+          </select>
+        </div>
+
+        <div class="field-block">
+          <label for="eventDescription">Description</label>
+          <input type="text" id="eventDescription" required>
+        </div>
+      </div>
+
+      <div class="form-grid form-grid-4">
+        <div class="field-block">
+          <label for="eventDate">Date</label>
+          <input type="date" id="eventDate" required>
+        </div>
+
+        <div class="field-block">
+          <label for="eventEndDate">Date de fin</label>
+          <input type="date" id="eventEndDate">
+        </div>
+
+        <div class="field-block">
+          <label for="eventCarePosts">Postes de soin</label>
+          <input type="number" id="eventCarePosts" min="1" value="1" required>
+        </div>
+
+        <div class="field-block">
+          <label for="eventMobileTeams">Équipes mobiles</label>
+          <input type="number" id="eventMobileTeams" min="0" value="0" required>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Créer l'événement</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="evenements.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Province</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Enregistrement patient DPS</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <span id="time"></span>
+  </div>
+</header>
+
+<main class="page-content">
+  <section class="province-page">
+    <section class="province-topbar">
+      <div class="province-user">
+        <span id="connectedUser"></span>
+      </div>
+      <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
+    </section>
+
+    <section class="province-panel">
+      <h1 class="page-title">Sélection de la province</h1>
+      <p class="page-subtitle">Choisis une province pour accéder à ses événements.</p>
+
+      <div class="body-help" style="margin-bottom: 16px;">
+        Clique directement sur une province de la carte.
+      </div>
+
+      <div class="body-map-wrapper">
+        <object id="belgiumMapObject" data="be.svg" type="image/svg+xml" style="width: 100%; max-width: 980px; height: 760px; border: 1px solid #d8dde3; border-radius: 8px; background: #ffffff;"></object>
+      </div>
+    </section>
+  </section>
+</main>
+
+<script src="province.js"></script>
+</body>
+</html>

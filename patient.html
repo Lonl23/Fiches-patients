@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Fiche patient</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Fiche patient DPS</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <span id="time"></span>
+  </div>
+</header>
+
+<main class="page-content">
+  <section class="patient-page">
+
+    <section class="patient-topbar">
+      <button id="backToEventBtn" class="btn-secondary">← Retour à l'événement</button>
+      <div class="patient-mode-label" id="patientModeLabel">Nouvelle fiche patient</div>
+    </section>
+
+    <section class="patient-main-card">
+      <div class="patient-header-block">
+        <div>
+          <h1 class="patient-main-title">Fiche patient</h1>
+          <p class="patient-subtitle" id="eventContext"></p>
+        </div>
+
+        <div class="patient-code-box">
+          <span>Code patient</span>
+          <strong id="patientCodeDisplay">Attribué à l'enregistrement</strong>
+        </div>
+      </div>
+
+      <div class="patient-sections-grid">
+
+        <section class="patient-card">
+          <h2>Identité et administratif</h2>
+
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label>
+                <input type="checkbox" id="unknownIdentityCheckbox">
+                Identité inconnue
+              </label>
+            </div>
+
+            <div class="field-block">
+              <label for="sex">Sexe</label>
+              <select id="sex">
+                <option value="">Choisir</option>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
+                <option value="Indéterminé / inconnu">Indéterminé / inconnu</option>
+              </select>
+            </div>
+
+            <div class="field-block">
+              <label for="triageIn">Triage IN</label>
+              <select id="triageIn">
+                <option value="">Choisir</option>
+                <option value="U1">U1</option>
+                <option value="U2">U2</option>
+                <option value="U3H">U3H</option>
+                <option value="U3NH">U3NH</option>
+                <option value="IMPLIQUE">IMPLIQUE</option>
+                <option value="DCD">DCD</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label>&nbsp;</label>
+              <button type="button" id="readEidBtn" class="btn-primary">Lire la carte d’identité</button>
+            </div>
+
+            <div class="field-block">
+              <label>&nbsp;</label>
+              <button type="button" id="demoEidBtn" class="btn-secondary">Simulation carte</button>
+            </div>
+
+            <div class="field-block">
+              <label>&nbsp;</label>
+              <div id="eidStatus" class="page-subtitle">Lecteur non utilisé</div>
+            </div>
+          </div>
+
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label for="lastName">Nom</label>
+              <input id="lastName" type="text">
+            </div>
+
+            <div class="field-block">
+              <label for="firstName">Prénom</label>
+              <input id="firstName" type="text">
+            </div>
+
+            <div class="field-block">
+              <label for="birthDate">Date de naissance</label>
+              <input id="birthDate" type="date">
+            </div>
+          </div>
+
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label for="ageDisplay">Âge calculé</label>
+              <input id="ageDisplay" type="text" readonly>
+            </div>
+
+            <div class="field-block">
+              <label for="nationality">Nationalité</label>
+              <select id="nationality">
+                <option value="">Choisir</option>
+                <option value="BE">BE</option>
+                <option value="FR">FR</option>
+                <option value="NL">NL</option>
+                <option value="DE">DE</option>
+                <option value="UK">UK</option>
+                <option value="AUTRE">Autres</option>
+              </select>
+            </div>
+
+            <div class="field-block">
+              <label for="nationalNumber">Numéro national</label>
+              <input id="nationalNumber" type="text">
+            </div>
+          </div>
+
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label for="patientAddress">Rue et numéro</label>
+              <input id="patientAddress" type="text">
+            </div>
+
+            <div class="field-block">
+              <label for="postalCode">Code postal</label>
+              <input id="postalCode" type="text">
+            </div>
+
+            <div class="field-block">
+              <label for="locality">Localité</label>
+              <input id="locality" type="text">
+            </div>
+          </div>
+        </section>
+
+        <section class="patient-card">
+          <h2>SAMPLER</h2>
+
+          <div class="patient-grid-2">
+            <div class="field-block">
+              <label for="samplerS">S - Signes &amp; Symptômes</label>
+              <textarea id="samplerS" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="samplerA">A - Allergies</label>
+              <textarea id="samplerA" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="samplerM">M - Médicaments</label>
+              <textarea id="samplerM" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="samplerP">P - Passé médical</label>
+              <textarea id="samplerP" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="samplerL">L - Le dernier repas</label>
+              <textarea id="samplerL" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="samplerE">E - Événements</label>
+              <textarea id="samplerE" rows="2"></textarea>
+            </div>
+
+            <div class="field-block full-width">
+              <label for="samplerR">R - Facteurs de risques</label>
+              <textarea id="samplerR" rows="2"></textarea>
+            </div>
+          </div>
+
+          <h3 class="subsection-title">OPQRST</h3>
+
+          <div class="patient-grid-2">
+            <div class="field-block">
+              <label for="opqrstO">O - Origine</label>
+              <textarea id="opqrstO" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="opqrstP">P - Provoqué par</label>
+              <textarea id="opqrstP" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="opqrstQ">Q - Qualifie</label>
+              <textarea id="opqrstQ" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="opqrstR">R - Radiation</label>
+              <textarea id="opqrstR" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="opqrstS">S - Sévérité</label>
+              <textarea id="opqrstS" rows="2"></textarea>
+            </div>
+
+            <div class="field-block">
+              <label for="opqrstT">T - Temps</label>
+              <textarea id="opqrstT" rows="2"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="patient-card full-span">
+          <h2>Clinique et localisation des lésions</h2>
+
+          <div class="patient-grid-2">
+            <div>
+              <div class="field-block">
+                <label for="pathology">Groupe de pathologies</label>
+                <select id="pathology">
+                  <option value="">Choisir</option>
+                  <option value="Intox">Intox</option>
+                  <option value="Trauma">Trauma</option>
+                  <option value="Malaise">Malaise</option>
+                  <option value="Brûlure">Brûlure</option>
+                  <option value="Cardio">Cardio</option>
+                  <option value="Respiratoire">Respiratoire</option>
+                  <option value="Neurologique">Neurologique</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </div>
+
+              <div class="field-block">
+                <label for="chiefComplaint">Motif / plainte principale</label>
+                <textarea id="chiefComplaint" rows="3"></textarea>
+              </div>
+
+              <div class="table-responsive">
+                <table class="clinical-table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Brûlures</th>
+                      <th>Plaies</th>
+                      <th>Contusion / écrasement</th>
+                      <th>Fracture / entorse</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Tête</td>
+                      <td><input type="checkbox" data-lesion="Tete|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="Tete|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="Tete|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="Tete|Fracture"></td>
+                    </tr>
+                    <tr>
+                      <td>MSD</td>
+                      <td><input type="checkbox" data-lesion="MSD|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="MSD|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="MSD|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="MSD|Fracture"></td>
+                    </tr>
+                    <tr>
+                      <td>MSG</td>
+                      <td><input type="checkbox" data-lesion="MSG|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="MSG|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="MSG|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="MSG|Fracture"></td>
+                    </tr>
+                    <tr>
+                      <td>Torse</td>
+                      <td><input type="checkbox" data-lesion="Torse|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="Torse|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="Torse|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="Torse|Fracture"></td>
+                    </tr>
+                    <tr>
+                      <td>Bassin</td>
+                      <td><input type="checkbox" data-lesion="Bassin|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="Bassin|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="Bassin|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="Bassin|Fracture"></td>
+                    </tr>
+                    <tr>
+                      <td>MID</td>
+                      <td><input type="checkbox" data-lesion="MID|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="MID|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="MID|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="MID|Fracture"></td>
+                    </tr>
+                    <tr>
+                      <td>MIG</td>
+                      <td><input type="checkbox" data-lesion="MIG|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="MIG|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="MIG|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="MIG|Fracture"></td>
+                    </tr>
+                    <tr>
+                      <td>Colonne</td>
+                      <td><input type="checkbox" data-lesion="Colonne|Brulures"></td>
+                      <td><input type="checkbox" data-lesion="Colonne|Plaies"></td>
+                      <td><input type="checkbox" data-lesion="Colonne|Contusion"></td>
+                      <td><input type="checkbox" data-lesion="Colonne|Fracture"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <div class="body-map-wrapper">
+                <div class="body-map-container">
+                  <img src="body.jpg" id="bodyImage" alt="Schéma anatomique">
+                  <div id="markersLayer"></div>
+                </div>
+              </div>
+
+              <p class="body-help">
+                Clique sur l'image pour placer une croix. Clique sur une croix existante pour la supprimer.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="patient-card full-span">
+          <h2>Paramètres vitaux</h2>
+
+          <div class="table-actions">
+            <button type="button" id="addVitalsColumnBtn" class="btn-secondary">Ajouter une colonne horaire</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="clinical-table">
+              <tbody id="vitalsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="patient-card">
+          <h2>Score de Glasgow</h2>
+
+          <div class="field-block">
+            <label for="glasgowAgeGroup">Tranche d’âge Glasgow</label>
+            <select id="glasgowAgeGroup">
+              <option value="gt5">&gt; 5 ans</option>
+              <option value="2to5">2 - 5 ans</option>
+              <option value="1to2">1 - 2 ans</option>
+              <option value="lt1">&lt; 1 an</option>
+            </select>
+          </div>
+
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label for="glasgowEye">Ouverture des yeux (E)</label>
+              <select id="glasgowEye"></select>
+            </div>
+
+            <div class="field-block">
+              <label for="glasgowVerbal">Réponse verbale (V)</label>
+              <select id="glasgowVerbal"></select>
+            </div>
+
+            <div class="field-block">
+              <label for="glasgowMotor">Réponse motrice (M)</label>
+              <select id="glasgowMotor"></select>
+            </div>
+          </div>
+
+          <div class="glasgow-score-box">
+            Score de Glasgow : <strong id="glasgowScore">15</strong>
+          </div>
+        </section>
+
+        <section class="patient-card">
+          <h2>Orientation / fiche</h2>
+
+          <div class="field-block">
+            <label for="materialUsed">Matériel utilisé</label>
+            <textarea id="materialUsed" rows="2"></textarea>
+          </div>
+
+          <div class="field-block">
+            <label for="clinicalNotes">Remarques cliniques</label>
+            <textarea id="clinicalNotes" rows="4"></textarea>
+          </div>
+        </section>
+      </div>
+
+      <div class="patient-bottom-actions">
+        <button id="savePatientBtn" class="btn-secondary">Enregistrer la fiche</button>
+      </div>
+    </section>
+  </section>
+</main>
+
+<script src="patient.js"></script>
+</body>
+</html>
