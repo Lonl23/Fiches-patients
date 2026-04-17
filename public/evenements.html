@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Événements</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Événements</span>
+    </div>
+    <div class="header-right"><span id="time"></span></div>
+  </header>
+
+  <main class="page-content">
+    <section class="page-shell">
+      <section class="page-topbar">
+        <div class="page-user" id="connectedUser"></div>
+        <div class="button-row">
+          <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h1 class="page-title">Événements</h1>
+            <p class="page-subtitle" id="eventSubtitle">Liste des événements disponibles</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Province</th>
+                <th>Commune</th>
+                <th>Statut</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="eventsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="evenements.js"></script>
+</body>
+</html>
