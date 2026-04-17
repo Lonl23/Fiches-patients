@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Connexion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Connexion sécurisée</span>
+    </div>
+    <div class="header-right"><span id="time"></span></div>
+  </header>
+
+  <main class="page-content">
+    <section class="page-shell">
+      <section class="panel login-panel">
+        <div class="panel-header">
+          <div>
+            <h1 class="page-title">Connexion</h1>
+            <p class="page-subtitle">Accède à ton événement et à ton PMA.</p>
+          </div>
+        </div>
+
+        <form id="loginForm" class="form-stack">
+          <div class="field-block">
+            <label for="email">Adresse mail</label>
+            <input id="email" type="email" autocomplete="username" required>
+          </div>
+
+          <div class="field-block">
+            <label for="password">Mot de passe</label>
+            <input id="password" type="password" autocomplete="current-password" required>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" class="btn-primary">Se connecter</button>
+          </div>
+
+          <div class="button-row">
+            <button type="button" id="requestAccountBtn" class="btn-secondary">Demander un identifiant</button>
+            <button type="button" id="resetPasswordBtn" class="btn-secondary">Mot de passe oublié</button>
+          </div>
+
+          <div id="loginMessage" class="info-text"></div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>

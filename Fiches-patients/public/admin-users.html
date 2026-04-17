@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Administration accès</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+  <div class="logo">
+    RESCUETRACK
+    <span class="app-subtitle">Administration des accès</span>
+  </div>
+  <div class="header-right"><span id="time"></span></div>
+</header>
+
+<main class="page-content">
+  <section class="page-shell">
+    <section class="page-topbar">
+      <button id="backBtn" class="btn-secondary">← Retour</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h1 class="page-title">Demandes d’accès</h1>
+          <p class="page-subtitle">Valider, refuser ou convertir une demande en accès utilisateur.</p>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Sexe</th>
+              <th>Date naissance</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="requestsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="section-title">Création / modification accès</h2>
+        </div>
+      </div>
+
+      <form id="userForm" class="form-stack">
+        <input type="hidden" id="editingUserId">
+
+        <div class="patient-grid-3">
+          <div class="field-block">
+            <label for="userEmail">Adresse mail</label>
+            <input id="userEmail" type="email" required>
+          </div>
+
+          <div class="field-block">
+            <label for="userFirstName">Prénom</label>
+            <input id="userFirstName" type="text" required>
+          </div>
+
+          <div class="field-block">
+            <label for="userLastName">Nom</label>
+            <input id="userLastName" type="text" required>
+          </div>
+        </div>
+
+        <div class="patient-grid-3">
+          <div class="field-block">
+            <label for="userSex">Sexe</label>
+            <select id="userSex" required>
+              <option value="">Choisir</option>
+              <option value="Homme">Homme</option>
+              <option value="Femme">Femme</option>
+              <option value="Indéterminé / inconnu">Indéterminé / inconnu</option>
+            </select>
+          </div>
+
+          <div class="field-block">
+            <label for="userBirthDate">Date de naissance</label>
+            <input id="userBirthDate" type="date" required>
+          </div>
+
+          <div class="field-block">
+            <label for="userAllowedProvinces">Provinces autorisées (séparées par virgule)</label>
+            <input id="userAllowedProvinces" type="text" placeholder="Liège, Namur">
+          </div>
+        </div>
+
+        <div class="patient-card">
+          <h3 class="section-title">Rôles</h3>
+          <div class="patient-grid-3">
+            <label><input type="checkbox" class="role-checkbox" value="secouriste_pma"> Secouriste PMA</label>
+            <label><input type="checkbox" class="role-checkbox" value="responsable_pma"> Responsable PMA</label>
+            <label><input type="checkbox" class="role-checkbox" value="infirmier"> Infirmier</label>
+            <label><input type="checkbox" class="role-checkbox" value="medecin"> Médecin</label>
+            <label><input type="checkbox" class="role-checkbox" value="responsable_evenement"> Responsable événement</label>
+            <label><input type="checkbox" class="role-checkbox" value="coordinateur"> Coordinateur</label>
+            <label><input type="checkbox" class="role-checkbox" value="facturation"> Facturation</label>
+          </div>
+        </div>
+
+        <div class="patient-card">
+          <h3 class="section-title">Qualifications</h3>
+          <div class="patient-grid-3">
+            <label><input type="checkbox" class="qualification-checkbox" value="ATNUP"> ATNUP</label>
+            <label><input type="checkbox" class="qualification-checkbox" value="AMU"> AMU</label>
+          </div>
+        </div>
+
+        <div class="patient-grid-3">
+          <div class="field-block">
+            <label for="userPassword">Mot de passe provisoire</label>
+            <input id="userPassword" type="text" placeholder="À utiliser lors de la création du compte Auth">
+          </div>
+
+          <div class="field-block">
+            <label for="userNumeroInami">Numéro INAMI</label>
+            <input id="userNumeroInami" type="text">
+          </div>
+
+          <div class="field-block">
+            <label for="userNumeroVisa">Numéro de visa</label>
+            <input id="userNumeroVisa" type="text">
+          </div>
+        </div>
+
+        <div class="patient-grid-3">
+          <div class="field-block">
+            <label for="userIsActive">Compte actif</label>
+            <select id="userIsActive">
+              <option value="true">Oui</option>
+              <option value="false">Non</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="submit" class="btn-primary">Enregistrer accès</button>
+          <button type="button" id="resetUserFormBtn" class="btn-secondary">Vider le formulaire</button>
+        </div>
+
+        <div id="adminMessage" class="info-text"></div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="section-title">Utilisateurs existants</h2>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Rôles</th>
+              <th>Actif</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+</main>
+
+<script type="module" src="admin-users.js"></script>
+</body>
+</html>

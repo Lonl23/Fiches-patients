@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Patients</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    RESCUETRACK
+    <span class="app-subtitle">Enregistrement patient DPS</span>
+  </div>
+  <div class="header-right">
+    <span id="time"></span>
+  </div>
+</header>
+
+<main class="patients-page">
+
+  <section class="patients-topbar">
+    <button id="backBtn" class="btn-secondary">← Retour événements</button>
+    <div id="eventInfo"></div>
+  </section>
+
+  <section class="patients-panel">
+
+    <div class="patients-header">
+      <h1 id="eventTitle"></h1>
+      <div class="patients-count" id="patientsCount">0</div>
+    </div>
+
+    <!-- FORMULAIRE -->
+    <div class="patient-form">
+
+      <div class="form-grid">
+        <input type="text" id="lastName" placeholder="Nom">
+        <input type="text" id="firstName" placeholder="Prénom">
+        <input type="date" id="birthDate">
+        <input type="text" id="nationalNumber" placeholder="Numéro national">
+        <input type="text" id="city" placeholder="Ville">
+      </div>
+
+      <textarea id="note" placeholder="Motif / remarque"></textarea>
+
+      <div class="form-actions">
+        <button id="scanBtn" class="btn-secondary">Lire carte eID</button>
+        <button id="addPatientBtn" class="btn-login">Ajouter patient</button>
+      </div>
+
+    </div>
+
+    <!-- TABLEAU -->
+    <table class="patients-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Naissance</th>
+          <th>Ville</th>
+          <th>Note</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="patientsTable"></tbody>
+    </table>
+
+  </section>
+
+</main>
+
+<script src="patients.js"></script>
+</body>
+</html>

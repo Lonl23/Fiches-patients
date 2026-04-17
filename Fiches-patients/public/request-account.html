@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Demande d'identifiant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Demande d'identifiant</span>
+    </div>
+    <div class="header-right"><span id="time"></span></div>
+  </header>
+
+  <main class="page-content">
+    <section class="page-shell">
+      <section class="panel login-panel">
+        <div class="panel-header">
+          <div>
+            <h1 class="page-title">Demande d’identifiant</h1>
+            <p class="page-subtitle">La demande sera enregistrée et transmise par mail à l’administrateur.</p>
+          </div>
+        </div>
+
+        <form id="requestAccountForm" class="form-stack">
+          <div class="patient-grid-2">
+            <div class="field-block">
+              <label for="reqLastName">Nom</label>
+              <input id="reqLastName" type="text" required>
+            </div>
+
+            <div class="field-block">
+              <label for="reqFirstName">Prénom</label>
+              <input id="reqFirstName" type="text" required>
+            </div>
+
+            <div class="field-block">
+              <label for="reqEmail">Adresse mail</label>
+              <input id="reqEmail" type="email" required>
+            </div>
+
+            <div class="field-block">
+              <label for="reqSex">Sexe</label>
+              <select id="reqSex" required>
+                <option value="">Choisir</option>
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
+                <option value="Indéterminé / inconnu">Indéterminé / inconnu</option>
+              </select>
+            </div>
+
+            <div class="field-block">
+              <label for="reqBirthDate">Date de naissance</label>
+              <input id="reqBirthDate" type="date" required>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" class="btn-primary">Envoyer la demande</button>
+            <button type="button" id="backToLoginBtn" class="btn-secondary">Retour connexion</button>
+          </div>
+
+          <div id="requestMessage" class="info-text"></div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="request-account.js"></script>
+</body>
+</html>

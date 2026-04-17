@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>RESCUETRACK - Événement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      RESCUETRACK
+      <span class="app-subtitle">Vue événement</span>
+    </div>
+    <div class="header-right"><span id="time"></span></div>
+  </header>
+
+  <main class="page-content">
+    <section class="page-shell">
+      <section class="event-topbar">
+        <button id="backBtn" class="btn-secondary">← Retour événements</button>
+        <div class="event-info" id="eventInfo"></div>
+      </section>
+
+      <section class="event-panel">
+        <div class="event-header">
+          <div>
+            <h1 class="events-title" id="eventTitle">Événement</h1>
+            <p class="events-subtitle" id="eventMeta"></p>
+          </div>
+
+          <div class="button-row">
+            <button id="choosePmaBtn" class="btn-secondary hidden">Choisir PMA</button>
+            <button id="addPatientBtn" class="btn-primary">Ajouter patient</button>
+          </div>
+        </div>
+
+        <div class="panel patient-card">
+          <h2 class="section-title">PMA actif</h2>
+          <div id="currentPmaLabel" class="page-subtitle">Non défini</div>
+        </div>
+
+        <div class="triage-counters-layout">
+          <div class="patient-card">
+            <h2 class="section-title">Boulier IN</h2>
+            <div class="triage-counter-grid">
+              <div class="triage-chip"><span>U1</span><strong id="inU1">0</strong></div>
+              <div class="triage-chip"><span>U2</span><strong id="inU2">0</strong></div>
+              <div class="triage-chip"><span>U3H</span><strong id="inU3H">0</strong></div>
+              <div class="triage-chip"><span>U3NH</span><strong id="inU3NH">0</strong></div>
+              <div class="triage-chip"><span>IMPLIQUE</span><strong id="inIMPLIQUE">0</strong></div>
+              <div class="triage-chip"><span>DCD</span><strong id="inDCD">0</strong></div>
+            </div>
+          </div>
+
+          <div class="patient-card">
+            <h2 class="section-title">Boulier OUT</h2>
+            <div class="triage-counter-grid">
+              <div class="triage-chip"><span>U1</span><strong id="outU1">0</strong></div>
+              <div class="triage-chip"><span>U2</span><strong id="outU2">0</strong></div>
+              <div class="triage-chip"><span>U3H</span><strong id="outU3H">0</strong></div>
+              <div class="triage-chip"><span>U3NH</span><strong id="outU3NH">0</strong></div>
+              <div class="triage-chip"><span>IMPLIQUE</span><strong id="outIMPLIQUE">0</strong></div>
+              <div class="triage-chip"><span>DCD</span><strong id="outDCD">0</strong></div>
+            </div>
+          </div>
+
+          <div class="patient-card full-span-mobile">
+            <h2 class="section-title">Boulier SUR PLACE</h2>
+            <div class="triage-counter-grid">
+              <div class="triage-chip"><span>U1</span><strong id="stayU1">0</strong></div>
+              <div class="triage-chip"><span>U2</span><strong id="stayU2">0</strong></div>
+              <div class="triage-chip"><span>U3H</span><strong id="stayU3H">0</strong></div>
+              <div class="triage-chip"><span>U3NH</span><strong id="stayU3NH">0</strong></div>
+              <div class="triage-chip"><span>IMPLIQUE</span><strong id="stayIMPLIQUE">0</strong></div>
+              <div class="triage-chip"><span>DCD</span><strong id="stayDCD">0</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="event-panel">
+        <h2 class="section-title">Patients</h2>
+        <div class="table-responsive">
+          <table class="patients-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Sexe</th>
+                <th>Triage actuel</th>
+                <th>Triage OUT</th>
+                <th>Destination</th>
+                <th>PMA</th>
+                <th>Entrée</th>
+                <th>Sortie</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="patientsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="event-panel">
+        <h2 class="section-title">Logbook</h2>
+        <form id="logbookForm" class="form-stack">
+          <div class="field-block">
+            <label for="logbookText">Entrée logbook</label>
+            <textarea id="logbookText" rows="3"></textarea>
+          </div>
+          <div class="button-row">
+            <button type="submit" class="btn-primary">Ajouter</button>
+          </div>
+        </form>
+
+        <div id="logbookList" class="logbook-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <div id="pmaModal" class="modal hidden">
+    <div class="modal-box">
+      <div class="panel-header">
+        <div>
+          <h2 class="section-title">Choisir votre PMA</h2>
+          <p class="page-subtitle">Sélectionne le PMA sur lequel tu travailles.</p>
+        </div>
+      </div>
+      <div id="pmaChoiceList" class="pma-choice-list"></div>
+    </div>
+  </div>
+
+  <div id="exitModal" class="modal hidden">
+    <div class="modal-box">
+      <div class="panel-header">
+        <div>
+          <h2 class="section-title">Sortie patient</h2>
+        </div>
+        <button id="closeExitModalBtn" class="btn-secondary">Fermer</button>
+      </div>
+
+      <div class="form-stack">
+        <div class="patient-grid-2">
+          <div class="field-block">
+            <label for="exitDestination">Destination</label>
+            <select id="exitDestination">
+              <option value="">Choisir</option>
+              <option value="Hopital">Hôpital</option>
+              <option value="Retour vie normale">Retour vie normale</option>
+              <option value="Retour domicile">Retour domicile</option>
+              <option value="DCD">DCD</option>
+            </select>
+          </div>
+
+          <div class="field-block">
+            <label for="exitTriageOut">Triage OUT</label>
+            <select id="exitTriageOut">
+              <option value="">Choisir</option>
+              <option value="U1">U1</option>
+              <option value="U2">U2</option>
+              <option value="U3H">U3H</option>
+              <option value="U3NH">U3NH</option>
+              <option value="IMPLIQUE">IMPLIQUE</option>
+              <option value="DCD">DCD</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="exitHospitalBlock" class="hidden">
+          <div class="patient-grid-2">
+            <div class="field-block">
+              <label for="exitTransportMode">Transport</label>
+              <select id="exitTransportMode">
+                <option value="">Choisir</option>
+                <option value="VSL">VSL</option>
+                <option value="Ambulance 112">Ambulance 112</option>
+                <option value="Ambulance ATNUP">Ambulance ATNUP</option>
+                <option value="Propres moyens">Propres moyens</option>
+              </select>
+            </div>
+
+            <div class="field-block">
+              <label for="exitHospitalName">Hôpital</label>
+              <input type="text" id="exitHospitalName">
+            </div>
+
+            <div class="field-block">
+              <label for="exitVectorName">Nom du vecteur</label>
+              <input type="text" id="exitVectorName">
+            </div>
+
+            <div class="field-block">
+              <label for="exitMission112Number">Numéro mission 112</label>
+              <input type="text" id="exitMission112Number">
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="confirmExitBtn" type="button" class="btn-primary">Valider sortie</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="event.js"></script>
+</body>
+</html>
