@@ -8,9 +8,16 @@
   --muted: #61707d;
   --primary: #2f79bd;
   --primary-dark: #25679f;
+  --success: #1f7a3d;
+  --danger: #b00020;
+  --warning: #996c00;
   --radius: 14px;
+  --radius-sm: 10px;
   --shadow: 0 6px 18px rgba(21, 34, 50, 0.08);
   --header-h: 64px;
+  --secouriste: #2f79bd;
+  --infirmier: #2e8b57;
+  --medecin: #c62828;
 }
 
 * {
@@ -27,11 +34,25 @@ body {
   color: var(--text);
 }
 
+body {
+  min-height: 100vh;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
 button,
 input,
 select,
 textarea {
   font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .hidden {
@@ -67,7 +88,8 @@ textarea {
   color: var(--muted);
 }
 
-.header-right {
+.header-right,
+#time {
   font-size: 14px;
   color: var(--muted);
 }
@@ -82,9 +104,29 @@ textarea {
   margin: 0 auto;
 }
 
+.page-topbar,
+.patient-topbar,
+.event-topbar,
+.province-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.page-user,
+.patient-mode-label,
+.event-info,
+.province-user {
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .panel,
 .patient-main-card,
-.event-panel {
+.event-panel,
+.province-panel {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -95,23 +137,6 @@ textarea {
 .panel + .panel,
 .event-panel + .event-panel {
   margin-top: 16px;
-}
-
-.page-topbar,
-.patient-topbar,
-.event-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.page-user,
-.patient-mode-label,
-.event-info {
-  color: var(--muted);
-  font-size: 14px;
 }
 
 .panel-header,
@@ -146,23 +171,31 @@ textarea {
   font-size: 20px;
 }
 
+.subsection-title {
+  margin: 18px 0 12px 0;
+  font-size: 17px;
+}
+
 .btn-primary,
 .btn-secondary,
-.table-action-btn {
+.table-action-btn,
+.btn-plus {
   border: 1px solid var(--primary);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: 0.2s ease;
 }
 
 .btn-primary,
-.table-action-btn {
+.table-action-btn,
+.btn-plus {
   background: var(--primary);
   color: #fff;
 }
 
 .btn-primary:hover,
-.table-action-btn:hover {
+.table-action-btn:hover,
+.btn-plus:hover {
   background: var(--primary-dark);
   border-color: var(--primary-dark);
 }
@@ -188,6 +221,12 @@ textarea {
   font-size: 13px;
 }
 
+.btn-plus {
+  width: 44px;
+  height: 44px;
+  font-size: 26px;
+}
+
 .form-stack {
   display: flex;
   flex-direction: column;
@@ -198,7 +237,8 @@ textarea {
 .patient-grid-3,
 .patient-sections-grid,
 .triage-counters-layout,
-.triage-counter-grid {
+.triage-counter-grid,
+.map-layout {
   display: grid;
   gap: 14px;
 }
@@ -223,6 +263,19 @@ textarea {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.map-layout {
+  grid-template-columns: 2fr 1fr;
+  align-items: start;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.full-span-mobile {
+  grid-column: auto;
+}
+
 .field-block {
   display: flex;
   flex-direction: column;
@@ -242,7 +295,7 @@ textarea {
   min-height: 44px;
   padding: 10px 12px;
   border: 1px solid #c9d2dc;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: #f5f8fc;
   color: var(--text);
 }
@@ -265,7 +318,8 @@ textarea {
 }
 
 .data-table,
-.patients-table {
+.patients-table,
+.clinical-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
@@ -274,7 +328,9 @@ textarea {
 .data-table th,
 .data-table td,
 .patients-table th,
-.patients-table td {
+.patients-table td,
+.clinical-table th,
+.clinical-table td {
   border: 1px solid var(--border-soft);
   padding: 10px;
   text-align: left;
@@ -282,7 +338,8 @@ textarea {
 }
 
 .data-table th,
-.patients-table th {
+.patients-table th,
+.clinical-table th {
   background: #f2f6fa;
 }
 
@@ -318,21 +375,42 @@ textarea {
   padding: 16px;
 }
 
+.logbook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.logbook-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.logbook-item strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.logbook-item small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.button-col {
+.button-col,
+.table-action-stack {
   display: flex;
   flex-direction: column;
   gap: 6px;
-}
-
-.login-panel {
-  max-width: 760px;
-  margin: 0 auto;
 }
 
 .triage-chip {
@@ -353,18 +431,108 @@ textarea {
   font-size: 18px;
 }
 
-.logbook-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
+.login-panel {
+  max-width: 760px;
+  margin: 0 auto;
 }
 
-.logbook-item {
+.belgium-map-wrapper {
+  background: #f8fbff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.belgium-map-container {
+  width: 100%;
+  min-height: 320px;
+}
+
+.belgium-map-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.province-shape {
+  fill: #dfe8f2;
+  stroke: #7c92a8;
+  stroke-width: 2;
+  cursor: pointer;
+  transition: fill 0.2s ease;
+}
+
+.province-shape:hover {
+  fill: #9fc4e8;
+}
+
+.map-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.province-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.province-list-btn,
+.full-width-btn {
+  width: 100%;
+}
+
+.body-map-wrapper {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px;
+}
+
+.body-map-container {
+  position: relative;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.body-map-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.body-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: var(--danger);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
+.body-help {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.glasgow-score-box {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  font-size: 16px;
+}
+
+.sticky-actions {
+  position: sticky;
+  bottom: 10px;
+  margin-top: 16px;
+  background: linear-gradient(to top, rgba(238, 241, 244, 0.98), rgba(238, 241, 244, 0));
+  padding-top: 10px;
 }
 
 .modal {
@@ -388,28 +556,111 @@ textarea {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
 
-.pma-choice-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.info-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.full-width-btn {
-  width: 100%;
+.badge-secouriste {
+  background: rgba(47, 121, 189, 0.12);
+  color: var(--secouriste);
 }
 
-.sticky-actions {
-  position: sticky;
-  bottom: 10px;
-  margin-top: 16px;
-  background: linear-gradient(to top, rgba(238, 241, 244, 0.98), rgba(238, 241, 244, 0));
-  padding-top: 10px;
+.badge-infirmier {
+  background: rgba(46, 139, 87, 0.12);
+  color: var(--infirmier);
+}
+
+.badge-medecin {
+  background: rgba(198, 40, 40, 0.12);
+  color: var(--medecin);
+}
+
+.note-secouriste,
+.border-secouriste {
+  border-left: 4px solid var(--secouriste);
+}
+
+.note-infirmier,
+.border-infirmier {
+  border-left: 4px solid var(--infirmier);
+}
+
+.note-medecin,
+.border-medecin {
+  border-left: 4px solid var(--medecin);
+}
+
+.role-color-secouriste {
+  color: var(--secouriste);
+}
+
+.role-color-infirmier {
+  color: var(--infirmier);
+}
+
+.role-color-medecin {
+  color: var(--medecin);
+}
+
+.triage-U1 {
+  color: #b00020;
+  font-weight: 700;
+}
+
+.triage-U2 {
+  color: #d97706;
+  font-weight: 700;
+}
+
+.triage-U3H {
+  color: #b59a00;
+  font-weight: 700;
+}
+
+.triage-U3NH {
+  color: #1f7a3d;
+  font-weight: 700;
+}
+
+.triage-IMPLIQUE {
+  color: #007b83;
+  font-weight: 700;
+}
+
+.triage-DCD {
+  color: #333333;
+  font-weight: 700;
+}
+
+.admin-highlight {
+  background: #f8fbff;
+  border: 1px dashed #7daedb;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+hr.soft-separator {
+  border: 0;
+  border-top: 1px solid var(--border-soft);
+  margin: 16px 0;
 }
 
 @media (max-width: 1100px) {
   .patient-sections-grid,
-  .triage-counters-layout {
+  .triage-counters-layout,
+  .map-layout {
     grid-template-columns: 1fr;
+  }
+
+  .full-span-mobile {
+    grid-column: 1 / -1;
   }
 }
 
@@ -433,6 +684,7 @@ textarea {
   .patient-code-box {
     width: 100%;
     text-align: left;
+    min-width: unset;
   }
 
   .btn-primary,
@@ -442,5 +694,45 @@ textarea {
 
   .button-row {
     flex-direction: column;
+  }
+
+  .data-table th,
+  .data-table td,
+  .patients-table th,
+  .patients-table td,
+  .clinical-table th,
+  .clinical-table td {
+    padding: 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-shell {
+    width: min(100%, calc(100% - 12px));
+  }
+
+  .panel,
+  .patient-main-card,
+  .event-panel {
+    padding: 14px;
+  }
+
+  .page-title,
+  .patient-main-title,
+  .events-title {
+    font-size: 24px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .app-subtitle {
+    font-size: 10px;
   }
 }

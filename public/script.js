@@ -23,7 +23,7 @@ const resetPasswordBtn = document.getElementById("resetPasswordBtn");
 
 watchAuth((user) => {
   if (user) {
-    window.location.href = "evenements.html";
+    window.location.href = "province.html";
   }
 });
 
@@ -33,7 +33,7 @@ loginForm.addEventListener("submit", async (e) => {
 
   try {
     await login(email.value.trim(), password.value.trim());
-    window.location.href = "evenements.html";
+    window.location.href = "province.html";
   } catch (error) {
     console.error(error);
     loginMessage.textContent = "Identifiants invalides ou accès refusé.";

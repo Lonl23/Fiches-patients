@@ -7,50 +7,138 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">
-      RESCUETRACK
-      <span class="app-subtitle">Événements</span>
-    </div>
-    <div class="header-right"><span id="time"></span></div>
-  </header>
+<header class="header">
+  <div class="logo">
+    RESCUETRACK
+    <span class="app-subtitle">Événements</span>
+  </div>
+  <div class="header-right"><span id="time"></span></div>
+</header>
 
-  <main class="page-content">
-    <section class="page-shell">
-      <section class="page-topbar">
-        <div class="page-user" id="connectedUser"></div>
-        <div class="button-row">
-          <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="panel-header">
-          <div>
-            <h1 class="page-title">Événements</h1>
-            <p class="page-subtitle" id="eventSubtitle">Liste des événements disponibles</p>
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Province</th>
-                <th>Commune</th>
-                <th>Statut</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="eventsTableBody"></tbody>
-          </table>
-        </div>
-      </section>
+<main class="page-content">
+  <section class="page-shell">
+    <section class="page-topbar">
+      <div class="page-user" id="connectedUser"></div>
+      <div class="button-row">
+        <button id="changeProvinceBtn" class="btn-secondary">Changer de province</button>
+        <button id="logoutBtn" class="btn-secondary">Déconnexion</button>
+      </div>
     </section>
-  </main>
 
-  <script type="module" src="evenements.js"></script>
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h1 class="page-title">Événements</h1>
+          <p class="page-subtitle" id="eventSubtitle">Liste des événements de la province sélectionnée.</p>
+        </div>
+        <div class="button-row">
+          <button id="toggleCreateEventBtn" class="btn-primary hidden">Créer un événement</button>
+        </div>
+      </div>
+
+      <div id="createEventBlock" class="patient-card hidden">
+        <h2 class="section-title">Nouvel événement</h2>
+
+        <form id="createEventForm" class="form-stack">
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label for="eventDescription">Description</label>
+              <input id="eventDescription" type="text" required>
+            </div>
+
+            <div class="field-block">
+              <label for="eventDate">Date</label>
+              <input id="eventDate" type="date" required>
+            </div>
+
+            <div class="field-block">
+              <label for="eventCommune">Commune</label>
+              <input id="eventCommune" type="text" required>
+            </div>
+          </div>
+
+          <div class="patient-grid-3">
+            <div class="field-block">
+              <label for="eventProvince">Province</label>
+              <input id="eventProvince" type="text" readonly>
+            </div>
+
+            <div class="field-block">
+              <label for="eventStatus">Statut</label>
+              <select id="eventStatus" required>
+                <option value="Ouvert">Ouvert</option>
+                <option value="Cloture">Clôturé</option>
+              </select>
+            </div>
+
+            <div class="field-block">
+              <label for="eventCode">Code événement interne (optionnel)</label>
+              <input id="eventCode" type="text" placeholder="Ex: EVT-001">
+            </div>
+          </div>
+
+          <div class="patient-card">
+            <h3 class="section-title">PMA (maximum 10)</h3>
+            <div class="patient-grid-2">
+              <div class="field-block"><label for="pma1">PMA 1</label><input id="pma1" type="text"></div>
+              <div class="field-block"><label for="pma2">PMA 2</label><input id="pma2" type="text"></div>
+              <div class="field-block"><label for="pma3">PMA 3</label><input id="pma3" type="text"></div>
+              <div class="field-block"><label for="pma4">PMA 4</label><input id="pma4" type="text"></div>
+              <div class="field-block"><label for="pma5">PMA 5</label><input id="pma5" type="text"></div>
+              <div class="field-block"><label for="pma6">PMA 6</label><input id="pma6" type="text"></div>
+              <div class="field-block"><label for="pma7">PMA 7</label><input id="pma7" type="text"></div>
+              <div class="field-block"><label for="pma8">PMA 8</label><input id="pma8" type="text"></div>
+              <div class="field-block"><label for="pma9">PMA 9</label><input id="pma9" type="text"></div>
+              <div class="field-block"><label for="pma10">PMA 10</label><input id="pma10" type="text"></div>
+            </div>
+          </div>
+
+          <div class="patient-card">
+            <h3 class="section-title">Centres d’accueil (CA) (maximum 10)</h3>
+            <div class="patient-grid-2">
+              <div class="field-block"><label for="ca1">CA 1</label><input id="ca1" type="text"></div>
+              <div class="field-block"><label for="ca2">CA 2</label><input id="ca2" type="text"></div>
+              <div class="field-block"><label for="ca3">CA 3</label><input id="ca3" type="text"></div>
+              <div class="field-block"><label for="ca4">CA 4</label><input id="ca4" type="text"></div>
+              <div class="field-block"><label for="ca5">CA 5</label><input id="ca5" type="text"></div>
+              <div class="field-block"><label for="ca6">CA 6</label><input id="ca6" type="text"></div>
+              <div class="field-block"><label for="ca7">CA 7</label><input id="ca7" type="text"></div>
+              <div class="field-block"><label for="ca8">CA 8</label><input id="ca8" type="text"></div>
+              <div class="field-block"><label for="ca9">CA 9</label><input id="ca9" type="text"></div>
+              <div class="field-block"><label for="ca10">CA 10</label><input id="ca10" type="text"></div>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" class="btn-primary">Enregistrer l’événement</button>
+            <button type="button" id="cancelCreateEventBtn" class="btn-secondary">Annuler</button>
+          </div>
+
+          <div id="createEventMessage" class="info-text"></div>
+        </form>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Province</th>
+              <th>Commune</th>
+              <th>Statut</th>
+              <th>PMA</th>
+              <th>CA</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="eventsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+</main>
+
+<script type="module" src="evenements.js"></script>
 </body>
 </html>

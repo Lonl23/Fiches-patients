@@ -15,9 +15,7 @@ export async function login(email, password) {
 }
 
 export async function logout() {
-  sessionStorage.removeItem("currentEventId");
-  sessionStorage.removeItem("currentPmaId");
-  sessionStorage.removeItem("currentPmaName");
+  sessionStorage.clear();
   return await signOut(auth);
 }
 
@@ -57,10 +55,19 @@ export async function requireAuth() {
         return;
       }
 
-      resolve({
-        authUser: user,
-        profile
-      });
+      resolve({ authUser: user, profile });
     });
   });
+}
+
+export function hasRole(profile, roleName) {
+  return Array.isArray(profile?.roles) && profile.roles.includes(roleName);
+}
+
+export function isCoordinator(profile) {
+  return hasRole(profile, "coordinateur");
+}
+
+export function canCreateEvent(profile) {
+  return hasRole(profile, "coordinateur") || hasRole(profile, "responsable_evenement");
 }
